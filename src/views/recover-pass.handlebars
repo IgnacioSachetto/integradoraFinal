@@ -1,0 +1,53 @@
+<form action='/recover-pass' method='post' style='width: 300px; padding: 10px;'>
+  <div class='text-center text-white mb-3'>
+    <p>Please give a new pass:</p>
+  </div>
+
+  <div class='mb-4'>
+    <div class='form-floating mb-3'>
+      <label for='inputEmailRegister'><i class='bi bi-envelope-at me-1'></i>Email</label>
+      <input value='{{email}}' type='text' class='form-control border-0 border-bottom border-dark'
+        id='inputEmailRegister' name='email' placeholder='Email' readonly />
+    </div>
+
+    <div class='form-floating mb-3'>
+      <label for='inputtokenRegister'><i class='bi bi-envelope-at me-1'></i>token</label>
+      <input value='{{token}}' type='text' class='form-control border-0 border-bottom border-dark'
+        id='inputtokenRegister' name='token' placeholder='token' readonly />
+    </div>
+
+    <div class='form-floating mb-3'>
+      <label for='inputpasswordRegister'><i class='bi bi-envelope-at me-1'></i>Password</label>
+      <input type='password' class='form-control border-0 border-bottom border-dark' id='inputpasswordRegister'
+        name='password' placeholder='Password' />
+    </div>
+
+    <div class='w-100 mt-4 d-flex justify-content-center align-items-center flex-column text-white'>
+      <button type='submit' class='btn btn-primary btn-block mb-4 w-100'>
+        Set new pass!
+      </button>
+      <div class='w-100 d-flex justify-content-between align-items-center flex-column gap-3'>
+        <div class='form-check w-100 d-flex justify-content-center align-items-center'>
+          <input class='form-check-input me-2' type='checkbox' value='' id='loginCheck' checked />
+          <label class='form-check-label' for='loginCheck'>Remember me</label>
+        </div>
+        <div class='row w-100 text-center'>
+          <a href='/recover-mail'>Forgot password?</a>
+        </div>
+        <div class='row'>
+          <p>Not a member?
+            <a href='/api/sessions/register'>Register</a>
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</form>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>

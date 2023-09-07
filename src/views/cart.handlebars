@@ -1,0 +1,64 @@
+<div>
+  <h1>All Products{{cid}}</h1>
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>quantity</th>
+      </tr>
+    </thead>
+    <tbody id='dinamic-product-list'>
+      {{#if p.length}}
+        {{#each p}}
+          <tr>
+            <td>{{this.name}}</td>
+            <td>{{this.description}}</td>
+            <td>{{this.price}}</td>
+            <td>{{this.stock}}</td>
+            <td>{{this.quantity}}</td>
+
+          </tr>
+        {{/each}}
+      {{else}}
+        <tr>
+          <td colspan='4'>Without Products</td>
+        </tr>
+      {{/if}}
+
+    </tbody>
+  </table>
+  <a id='purchase-link' href='http://localhost:8080/api/carts/{{cid}}/purchase'>BUY</a>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const purchaseLink = document.getElementById("purchase-link");
+
+    purchaseLink.addEventListener("click", (event) => {
+      event.preventDefault();
+
+      const url = purchaseLink.getAttribute("href");
+
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+        .then((response) => {
+          if (response.ok) {
+            console.log("Sucess");
+            window.location.href = '/vista/products';
+
+          } else {
+            console.error("Error");
+          }
+        })
+        .catch((error) => {
+          console.error("Error", error);
+        });
+    });
+  });
+</script>

@@ -1,0 +1,85 @@
+<div class="realtimeproducts-container">
+    <form id="form-products">
+    <div class="newProduct">
+        <div class="input-form">
+            <label for="title">Title:</label>
+            <input id="title" type="text" name="title" placeholder="Title" required/>
+        </div>
+        <div class="input-form">
+            <label for="price">Price:</label>
+            <input id="price" type="number" name="price" placeholder="Price" required/>
+        </div>
+        <div class="input-form">
+            <label for="description">Description:</label>
+            <input id="description" type="text" name="description" placeholder="Description" required/>
+        </div>
+        <div class="input-form">
+            <label for="thumbnails">Thumbnails:</label>
+            <input id="thumbnails" type="text" name="thubmail" placeholder="Thumbnail"/>
+        </div>
+        <div class="input-form">
+            <label for="code">Code:</label>
+            <input id="code" type="text" name="code" placeholder="Code" required/>
+        </div>
+        <div class="input-form">
+            <label for="stock">Stock:</label>
+            <input id="stock" type="number" name="stock" placeholder="Stock" required/>
+        </div>
+        <div class="input-form">
+            <label for="category">Category:</label>
+            <input id="category" type="text" name="category" placeholder="Category" required/>
+        </div>
+        <div class="input-form">
+            <label for="status">Status:</label>
+            <input id="status" type="checkbox" name="status"/>
+        </div>
+        <input id="btn-form" type="submit" value="Crear Producto"/>
+    </div>
+</div>
+
+</form>
+    <div class="table-container">
+        <h1>Todos los productos</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Thubmail</th>
+                    <th>Code</th>
+                    <th>Stock</th>
+                    <th>Category</th>
+                    <th>Status</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="dinamic-product-list">
+                {{#each allProducts}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.price}}</td>
+                    <td>[
+                        {{#each this.thumbnails}}
+                            <label>{{this}}</label>
+                        {{/each}}
+                    ]</td>
+                    <td>{{this.code}}</td>
+                    <td>{{this.stock}}</td>
+                    <td>{{this.category}}</td>
+                    <td>{{this.status}}</td>
+                    <td>
+                    <button type="button" class="btn-delete" value="{{this.id}}">Eliminar</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/realTimeProducts.js"></script>

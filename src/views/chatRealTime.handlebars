@@ -1,0 +1,16 @@
+
+<div class="container">
+  <h1>Welcome to the community chat: <span id="span-nombre"></span></h1>
+  <h3>Community Messages:</h3>
+
+  <div id="div-msg">
+    Please send a msg to the chat
+  </div>
+  <input id="input-msg" type="text" value="" placeholder="Escribe aquí tu mensaje...">
+
+  <button class="btn-send">SEND</button>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/chatRealTime.js"></script>

@@ -1,0 +1,56 @@
+<div class='container-fluid'>
+    <div class='row'>
+        <div class='col g-0'>
+            <div class='bg-image' style='filter: blur(5px);'></div>
+
+            <div class='contenedorTituloPrincipal'>
+                <div class='d-flex justify-content-center align-items-center flex-column bg-dark mt-3'
+                    style='border-radius: 20px 20px 20px 20px'>
+                    <div class='tab-content'>
+                        <div class='tab-pane fade show active' id='pills-login' role='tabpanel'
+                            aria-labelledby='tab-login'>
+                            <form action='/recover-mail' method='post' style='width: 300px; padding: 10px;'>
+
+
+                                <div class='mb-4'>
+                                    <div class='form-floating mb-3'>
+                                        <label for='input-passwordLogin'><i
+                                                class='bi bi-envelope-at me-1'></i>Email</label>
+
+                                        <input type='email' class='form-control border-0 border-bottom border-dark'
+                                            id='inputEmailRegister' name='email' placeholder='Email' />
+                                    </div>
+
+                                    <div
+                                        class='w-100 mt-4 d-flex justify-content-center align-items-center flex-column text-white'>
+                                        <button type='submit' class='btn btn-primary btn-block mb-4 w-100'>
+                                            Recover
+                                        </button>
+                                        <div
+                                            class='w-100 d-flex justify-content-between align-items-center flex-column gap-3'>
+                                            <div
+                                                class='form-check w-100 d-flex justify-content-center align-items-center'>
+                                                <input class='form-check-input me-2' type='checkbox' value=''
+                                                    id='loginCheck' checked />
+                                                <label class='form-check-label' for='loginCheck'>Remember me</label>
+                                            </div>
+                                            <div class='row w-100 text-center'>
+                                                <a href='/recover-mail'>Forgot password?</a>
+                                            </div>
+                                            <div class='row'>
+                                                <p>Not a member?
+                                                    <a href='/api/sessions/register'>Register</a>
+                                                </p>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
