@@ -40,7 +40,7 @@ class CartController {
   async getOne(req, res) {
     try {
       const cart = await cartService.getCart(req.params.id);
-      if (typeof cart !== {}) {
+      if (Object.keys(cart).length !== 0) {
         return res.status(200).json({
           status: 'sucess',
           msg: 'Cart found',
@@ -212,7 +212,7 @@ class CartController {
       const email = req.user.email;
       const { cid, pid } = req.params;
       const cartUptaded = await cartService.addProductToCart(cid, pid, email);
-      if (typeof cart !== {}) {
+      if (Object.keys(cart).length !== 0) {
         return res.status(200).json({
           status: 'sucess',
           msg: 'Product added',

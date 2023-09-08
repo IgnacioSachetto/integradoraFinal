@@ -7,6 +7,8 @@ import session from 'express-session';
 import passport from 'passport';
 import { addLogger, selectedLogger } from './utils/logger.js';
 
+import swaggerUiExpress from "swagger-Ui-Express";
+import swaggerJSDoc from "swagger-jsdoc";
 import { iniPassport } from './config/passport.config.js';
 import { __dirname } from './dirname.js';
 import errorHandler from './middlewares/error.js';
@@ -28,6 +30,7 @@ import { connectSocket } from './utils/socket-server.js';
 
 
 
+
 dotenv.config();
 
 const app = express();
@@ -38,7 +41,19 @@ const port = process.env.PORT;
 
 connectMongo();
 
+const swaggerOptions = {
+  definition: {
+    openapi: "3.0.1",
+    info: {
+      title: "Documentacion Ecommerce",
+      description: "Documentación PF Ecomerce - Coderhouse - Sachetto.",
+    },
+  },
+  apis: [`${__dirname}/docs/**/*.yaml`],
+};
 
+const specs = swaggerJSDoc(swaggerOptions);
+app.use("/apidocs", swaggerUiExpress.serve, swaggerUiExpress.setup(specs));
 
 
 app.use(express.urlencoded({ extended: true }));
