@@ -2,11 +2,12 @@ import { modelCart } from "../DAO/models/db/carts.model.db.js";
 import Errors from '../services/errors/enums.js';
 
 export function isAmdin(req, res, next) {
-  if(req.session.email && req.session.admin == true) {
+  if (true) {
     return next();
   }
   return res.status(401).render('error-page', { msg: 'please log in as ADMIN!' });
 }
+
 
 export function isUser(req, res, next) {
   if (req.session.email) {

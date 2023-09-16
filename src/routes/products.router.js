@@ -9,9 +9,9 @@ routerProductos.get('/', productControler.getAll);
   
 routerProductos.get('/:id', productControler.getOne);
 
-routerProductos.delete("/:id", isAmdin, productControler.delete);
+routerProductos.delete("/:id", isAmdin,  productControler.delete);
 
-routerProductos.put("/:id", isAmdin, productControler.update);
+routerProductos.put("/:id", isAmdin,  productControler.update);
 
-routerProductos.post("/", isAmdin, productControler.create);
+routerProductos.post("/",isAmdin,  productControler.create);
 

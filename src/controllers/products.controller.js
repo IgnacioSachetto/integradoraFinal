@@ -100,6 +100,7 @@ class ProductControler {
         }
       }
     } catch (e) {
+      console.log(e);
       CustomError.createError({
         name: 'Error Del Servidor',
         cause: 'Ocurrió un error inesperado en el servidor. La operación no pudo completarse.',
@@ -113,13 +114,14 @@ class ProductControler {
     try {
       const { id } = req.params;
       const { title, description, code, price, status, stock, category, thumbnails } = req.body;
-      const productUptaded = await productService.updateProduct(id, title, description, code, price, status, stock, category, thumbnails);
+      let productUptaded = await productService.updateProduct(id, title, description, code, price, status, stock, category, thumbnails);
       return res.status(201).json({
         status: 'success',
         msg: 'product updated',
         data: productUptaded,
       });
     } catch (e) {
+      console.log(e);
       CustomError.createError({
         name: 'Error Del Servidor',
         cause: 'Ocurrió un error inesperado en el servidor. La operación no pudo completarse.',
@@ -133,7 +135,7 @@ class ProductControler {
     try {
       const user = req.user.rol;
       const { id } = req.params;
-      const deleted = await productService.deleteProduct(id,user);
+      let deleted = await productService.deleteProduct(id,user);
       return res.status(200).json({
         status: 'success',
         msg: 'product deleted',

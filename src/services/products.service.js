@@ -66,7 +66,7 @@ class ProductService {
 
   async createProduct(title, description, code, price, status, stock, category, thumbnails) {
     const products = await modelProduct.getAllProducts();
-    const productcreated = null;
+    let productcreated = null;
     let existcode = products.docs.find((p) => p.code === code);
     if (existcode) {
       return (productcreated = {
