@@ -1,5 +1,5 @@
 import multer from 'multer';
-import path from 'path'; // Importa el módulo path
+import path from 'path';
 
 const destination = (req, file, cb) => {
   const category = req.body.category;
