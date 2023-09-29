@@ -74,3 +74,4 @@ error: User already exists
 error: User Not Found with username (email) nicolasarieldurelli@gmail.com
 error: User Not Found with username (email) prueba111@prueba1.com
 error: User already exists
+error: Invalid Password

@@ -1,7 +1,7 @@
 import { Schema, model } from 'mongoose';
-import monsoosePaginate from 'mongoose-paginate-v2';
+import mongoosePaginate from 'mongoose-paginate-v2';
 
-const schema = new Schema({
+const userSchema = new Schema({
   email: { type: String, required: true, max: 100 },
   password: { type: String, required: false, max: 100 },
   firstName: { type: String, required: false, max: 100 },
@@ -9,6 +9,15 @@ const schema = new Schema({
   age: { type: Number, required: false },
   cart: { type: String, required: false },
   rol: { type: String, default: 'user', required: true },
+  documents: [
+    {
+      name: { type: String, required: true },
+      reference: { type: String, required: true },
+    }
+  ],
+  last_connection: { type: Date, default: null },
 });
-schema.plugin(monsoosePaginate);
-export const UserModel = model('users', schema);
+
+userSchema.plugin(mongoosePaginate);
+
+export const UserModel = model('users', userSchema);
