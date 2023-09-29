@@ -5,12 +5,14 @@ const destination = (req, file, cb) => {
   const category = req.body.category;
   let uploadPath = 'src/multer/';
 
+  console.log(category);
+
   if (category === 'profile') {
-    uploadPath = path.resolve('src/multer/'); // Ruta relativa desde la raíz de tu proyecto
-  } else if (category === 'product') {
-    uploadPath = path.resolve('src/multer/'); // Ruta relativa desde la raíz de tu proyecto
-  } else if (category === 'document') {
-    uploadPath = path.resolve('src/multer/'); // Ruta relativa desde la raíz de tu proyecto
+    uploadPath = path.resolve('src/multer/profile/');
+  } else if (category === 'products') {
+    uploadPath = path.resolve('src/multer/product/');
+  } else if (category === 'documents') {
+    uploadPath = path.resolve('src/multer/documents/');
   }
 
   console.log('Multer Middleware - Destination:', uploadPath);
