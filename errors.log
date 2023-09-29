@@ -1,77 +1,19 @@
-error: GET on /loggerTest - 15:10:11
-error: Fatal Error.
-error: GET on /loggerTest - 15:11:16
-error: Fatal Error.
-error: GET on /loggerTest - 16:23:37
-error: GET on /loggerTest - 16:23:54
-error: GET on /loggerTest - 16:26:34
-error: GET on /loggerTest - 16:42:25
-error: GET on /loggerTest - 16:44:08
-error: GET on /loggerTest - 16:46:02
-error: GET on /loggerTest - 17:13:09
-error: GET on /loggerTest - 17:14:07
-error: GET on /loggerTest - 17:15:22
-error: GET on /loggerTest - 17:16:12
-error: GET on /loggerTest - 17:16:29
-error: GET on /loggerTest - 17:16:44
-error: GET on /loggerTest - 17:23:24
-error: GET on /loggerTest - 17:24:01
-error: GET on /loggerTest - 17:38:13
-error: GET on /loggerTest - 17:38:15
-error: GET on /loggerTest - 18:12:28
-error: GET on /loggerTest - 18:12:40
-error: GET on /loggerTest - 18:12:43
-error: GET on /loggerTest - 18:13:10
-error: Conectado
-error: GET on /loggerTest - 18:53:51
-error: Invalid Password
-error: Invalid Password
-error: Invalid Password
-error: Invalid Password
 error: undefined
 error: undefined
 error: undefined
 error: undefined
 error: undefined
 error: undefined
-error: Error in register
 error: undefined
 error: undefined
-error: Error in register
 error: undefined
 error: undefined
-error: Error in register
 error: undefined
 error: undefined
-error: Error in register
 error: undefined
 error: undefined
-error: Error in register
 error: undefined
 error: undefined
-error: Error in register
 error: undefined
 error: undefined
-error: Error in register
 error: undefined
-error: undefined
-error: Error in register
-error: undefined
-error: undefined
-error: Error in register
-error: undefined
-error: undefined
-error: Error in register
-error: undefined
-error: undefined
-error: User already exists
-error: User already exists
-error: User already exists
-error: User already exists
-error: User already exists
-error: User already exists
-error: User already exists
-error: User Not Found with username (email) nicolasarieldurelli@gmail.com
-error: User Not Found with username (email) prueba111@prueba1.com
-error: User already exists
-error: Invalid Password

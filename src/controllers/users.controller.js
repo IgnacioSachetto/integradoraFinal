@@ -35,11 +35,38 @@ class UserController {
       const { id } = req.params;
       const user = await userService.getOneUser(id);
       if (user) {
+
         return res.status(200).json({
           status: 'success',
           msg: 'usuario encontrado',
           data: user,
         });
+      } else {
+        CustomError.createError({
+          name: 'Error Entrada Invalida',
+          cause: 'Parametros Faltantes o incorrectos.',
+          message: 'Algunos de los parámetros requeridos están ausentes o son incorrectos para completar la petición.',
+          code: EErrors.INVALID_INPUT_ERROR,
+        });
+      }
+    } catch (e) {
+      CustomError.createError({
+        name: 'Error Del Servidor',
+        cause: 'Ocurrió un error inesperado en el servidor. La operación no pudo completarse.',
+        message: 'Lo sentimos, ha ocurrido un error inesperado en el servidor. Por favor, contacta al equipo de soporte.',
+        code: EErrors.ERROR_INTERNO_SERVIDOR,
+      });
+    }
+  }
+
+  async getOneByDocument(req, res) {
+    try {
+      const { uid } = req.params;
+      const user = await userService.getOneUser(uid);
+      if (user) {
+        const uid = user._id.toString();
+
+        return res.render('documents', { uid: uid });
       } else {
         CustomError.createError({
           name: 'Error Entrada Invalida',
@@ -76,6 +103,38 @@ class UserController {
       });
     }
   }
+
+
+  async createDocument(req, res) {
+    try {
+      const userId = req.params.uid;
+      const user = await userService.getOneUser(userId);
+
+      if (!user) {
+        return res.status(404).json({
+          status: 'error',
+          msg: 'Usuario no encontrado',
+        });
+      } else {
+        const uploadResult = await userService.createDocumentAndUpdateUser(user, req.file);
+
+        return res.status(200).json({
+          status: 'success',
+          msg: 'Cargado Documento',
+          data: uploadResult,
+        });
+      }
+    } catch (error) {
+      console.error('Error al subir documentos y actualizar el estado del usuario:', error);
+      CustomError.createError({
+        name: 'Error Del Servidor',
+        cause: 'Ocurrió un error inesperado en el servidor. La operación no pudo completarse.',
+        message: 'Lo sentimos, ha ocurrido un error inesperado en el servidor. Por favor, contacta al equipo de soporte.',
+        code: EErrors.ERROR_INTERNO_SERVIDOR,
+      });
+    }
+  }
+
 
   async update(req, res) {
     try {

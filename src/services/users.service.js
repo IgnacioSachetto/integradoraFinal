@@ -41,8 +41,8 @@ class UserService {
     return users;
   }
 
-  async getOneUser(id) {
-    const user = await modelUsuario.getOneUser(id);
+  async getOneUser(uid) {
+    const user = await modelUsuario.getOneUser(uid);
     return user;
   }
 
@@ -62,6 +62,18 @@ class UserService {
     const userUptaded = await modelUsuario.updateUser(id, firstName, lastName, email);
     return userUptaded;
   }
+
+async createDocumentAndUpdateUser(user) {
+  try {
+    user.hasUploadedDocuments = true;
+    await user.save();
+    return 'Documentos subidos exitosamente';
+  } catch (error) {
+    console.error('Error al subir documentos y actualizar el estado del usuario:', error);
+    throw new Error('Error al subir documentos y actualizar el estado del usuario');
+  }
+}
+
 
   async deleteUser(id) {
     this.validateId(id);

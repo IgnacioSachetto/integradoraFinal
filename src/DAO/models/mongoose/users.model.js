@@ -9,6 +9,7 @@ const userSchema = new Schema({
   age: { type: Number, required: false },
   cart: { type: String, required: false },
   rol: { type: String, default: 'user', required: true },
+  hasUploadedDocuments: { type: Boolean, default: false },
   documents: [
     {
       name: { type: String, required: true },
