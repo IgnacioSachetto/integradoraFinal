@@ -13,6 +13,8 @@ routerVistaProducts.get('/', async (req, res) => {
   const allProducts = await productService.getAllProducts(limit, page, query, sort);
   const previusLink = await productService.getPrevLink(requestUrl, page, allProducts.hasPrevPage);
   const postLink = await productService.getNextLink(requestUrl, page, allProducts.hasNextPage);
+  const _id = req.session.user?._id;
+  console.log(_id);
   const firstName = req.session.user?.firstName;
   const lastName = req.session.user?.lastName;
   const email = req.session.user?.email;
@@ -24,6 +26,7 @@ routerVistaProducts.get('/', async (req, res) => {
     lastName: lastName,
     rol: rol,
     email: email,
+    _id: _id,
   };
 
   res.status(200).render('products', {
