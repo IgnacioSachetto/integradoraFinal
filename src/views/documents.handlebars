@@ -1,19 +1,15 @@
 <div>
   <h1>Document Upload</h1>
   <form action="/api/users/{{uid}}/documents" method="POST" enctype="multipart/form-data">
-    <!-- Agrega el elemento select con las categorías -->
     <select name="category" required>
       <option value="profile">Profile</option>
       <option value="products">Products</option>
       <option value="documents">Documents</option>
     </select>
 
-    <!-- Agrega el input para seleccionar el archivo -->
     <input type="file" name="file" accept=".pdf, .doc, .docx" required>
 
-    <!-- Botón de envío -->
     <button type="submit">Upload Document</button>
-    <p>La UID es {{uid}}</p>
   </form>
 
   {{#if hasUploadedDocuments}}

@@ -57,23 +57,55 @@ class UserService {
     return userCreated;
   }
 
+  async changerol(uid) {
+    try {
+      const user = await this.getOneUser(uid);
+
+      if (!user) {
+        return null;
+      }
+
+      if (user.rol === 'premium') {
+        return user;
+      }
+
+      const requiredDocuments = ['Identificación', 'Comprobante de domicilio', 'Comprobante de estado de cuenta'];
+      const multerFolders = ['profile', 'product', 'document'];
+
+      const hasRequiredDocuments = multerFolders.some(folder => {
+        return requiredDocuments.every(documentName =>
+          user.documents.some(document => document.reference.includes(`src/multer/${folder}/`) && document.name.includes(documentName))
+        );
+      });
+
+      if (hasRequiredDocuments) {
+        user.rol = 'premium';
+        const updatedUser = await this.updateUser(uid, user.firstName, user.lastName, user.email, user.rol);
+        return updatedUser;
+      } else {
+        return false;
+      }
+    } catch (error) {
+      console.error('El usuario no ha terminado de cargar su documentación', error);
+      throw error;
+    }
+  }
+
   async updateUser(id, firstName, lastName, email) {
     this.validatePostUser(id, firstName, lastName, email);
     const userUptaded = await modelUsuario.updateUser(id, firstName, lastName, email);
     return userUptaded;
   }
 
-async createDocumentAndUpdateUser(user) {
-  try {
-    user.hasUploadedDocuments = true;
-    await user.save();
-    return 'Documentos subidos exitosamente';
-  } catch (error) {
-    console.error('Error al subir documentos y actualizar el estado del usuario:', error);
-    throw new Error('Error al subir documentos y actualizar el estado del usuario');
+  async createDocumentAndUpdateUser(user) {
+    try {
+      user.hasUploadedDocuments = true;
+      await user.save();
+      return 'Documentos subidos exitosamente';
+    } catch (error) {
+      throw new Error('Error al subir documentos y actualizar el estado del usuario');
+    }
   }
-}
-
 
   async deleteUser(id) {
     this.validateId(id);
