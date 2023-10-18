@@ -1,56 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/styles/products.css">
+    <script type="module" src="/js/products.js"></script>
+    <title>All Products</title>
+</head>
+<body>
+    <div class="header">
+        <div class="user-info">
+            <img src="/images/roman_makelele.jpg" alt="User Image">
+            <p>Welcome {{user.firstName}} {{user.lastName}}</p>
+        </div>
+        <div class="buttons">
+            <a href='/api/users/{{user._id}}/documents'>Upload Documents</a>
+            <a href='/chatsocket'>Community Chat</a>
+            <a id="carrito" href="http://localhost:8080/vista/cart/{{cartid}}">Your Cart 🛒</a>
+            <a href='/logout' style="background-color: #ff0000;">Logout</a>
+        </div>
+    </div>
 
-<div>
-  <script type="module" src="/js/products.js"></script>
-
-  <h1>All products</h1>
-  <h2>Welcome {{user.firstName}}, {{user.lastName}}, {{user.email}}, rol: {{user.rol}}</h2>
-
-  <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Description</th>
-                <th>Price</th>
-                <th>Stock</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody id="dinamic-product-list">
-            {{#each p}}
-            <tr>
-                <td>{{this.name}}</td>
-                <td>{{this.description}}</td>
-                <td>{{this.price}}</td>
-                <td>{{this.stock}}</td>
-                <td>
-                <button class="btn-add" type="button" value="{{this.id}}">ADD to Cart</button>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-
-    <hr />
-    <hr />
-
-    {{prevPage}}
-    {{#if hasPrevPage}}
-      <a href="{{prevLink}}">⬅️</a>
-    {{/if}}
-    {{page}}
-    {{#if hasNextPage}}
-      <a href="{{nextLink}}">➡️</a>
-    {{/if}}
-    {{nextPage}}
-
-    <a id="carrito" href="http://localhost:8080/vista/cart/{{cartid}}" value={{cartid}}>🛒</a>
-    <br/>
-      <a href='/api/users/{{user._id}}/documents' class='btn btn-primary'>Cargar Documentos</a>
-
-  </div>
-  <a href='/chatsocket'>Use community chat</a>
-    <br>
-  <a href='/logout'>Logout</a>
-</div>
-
-
+    <div class="container">
+        <h1>All products</h1>
+        <h2>{{user.firstName}}, {{user.lastName}}, {{user.email}}, rol: {{user.rol}}</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="dinamic-product-list">
+                {{#each p}}
+                <tr>
+                    <td>{{this.name}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.stock}}</td>
+                    <td>
+                        <button class="btn-add" type="button" value="{{this.id}}">ADD to Cart</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+        {{prevPage}}
+        {{#if hasPrevPage}}
+        <a href="{{prevLink}}">⬅️</a>
+        {{/if}}
+        {{page}}
+        {{#if hasNextPage}}
+        <a href="{{nextLink}}">➡️</a>
+        {{/if}}
+        {{nextPage}}
+    </div>
+</body>
+</html>

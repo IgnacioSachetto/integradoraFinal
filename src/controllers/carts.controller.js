@@ -3,6 +3,20 @@ import CustomError from '../services/errors/custom-error.js';
 import EErrors from '../services/errors/enums.js';
 
 class CartController {
+    async renderCart (req, res) {
+    const cid = req.params.cid;
+    const cart = await cartService.getCart(cid);
+    const products = cart.products.map((product) => ({
+      name: product.id.title,
+      description: product.id.description,
+      price: product.id.price,
+      stock: product.id.stock,
+      quantity: product.quantity,
+      id: product._id.toString(),
+    }));
+    res.status(200).render("cart", { p: products, cid: cid });
+  };
+
   async getAll(req, res) {
     try {
       const limit = req.query.limit || -1;
@@ -40,7 +54,7 @@ class CartController {
   async getOne(req, res) {
     try {
       const cart = await cartService.getCart(req.params.id);
-      if (Object.keys(cart).length !== 0) {
+      if (typeof cart !== {}) {
         return res.status(200).json({
           status: 'sucess',
           msg: 'Cart found',
@@ -198,8 +212,6 @@ class CartController {
         });
       }
     } catch (e) {
-
-      console.log(e);
       CustomError.createError({
         name: 'Error Del Servidor',
         cause: 'Ocurrió un error inesperado en el servidor. La operación no pudo completarse.',
@@ -214,7 +226,7 @@ class CartController {
       const email = req.user.email;
       const { cid, pid } = req.params;
       const cartUptaded = await cartService.addProductToCart(cid, pid, email);
-      if (Object.keys(cart).length !== 0) {
+      if (typeof cart !== {}) {
         return res.status(200).json({
           status: 'sucess',
           msg: 'Product added',

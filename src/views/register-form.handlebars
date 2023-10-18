@@ -1,19 +1,21 @@
-<form action="/api/sessions/register" method="POST">
-  <label for="firstName">First Name:</label>
-  <input id="firstName" name="firstName" type="text" required placeholder="First Name" />
+<link rel="stylesheet" type="text/css" href="styles/register.css">
 
-  <label for="lastName">Last Name:</label>
-  <input id="lastName" name="lastName" type="text" required placeholder="Last Name" />
+<body>
+  <div class="container">
+    <form action="/api/sessions/register" method="POST">
+      <input id="firstName" name="firstName" type="text" required placeholder="First Name" />
 
-  <label for="age">Age:</label>
-  <input id="age" name="age" type="number" required placeholder="Age" />
+      <input id="lastName" name="lastName" type="text" required placeholder="Last Name" />
 
-  <label for="email">Email:</label>
-  <input id="email" name="email" type="email" required placeholder="Email" />
+      <input id="age" name="age" type="number" required placeholder="Age" />
 
-  <label for="password">Password:</label>
-  <input id="password" name="password" type="password" required placeholder="Password" />
+      <input id="email" name="email" type="email" required placeholder="Email" />
 
-  <button type="submit">Register</button>
-</form>
-<p>Already have an account? <a href="/login">Log in here</a>.</p>
+      <input id="password" name="password" type="password" required placeholder="Password" />
+
+      <button type="submit">Register</button>
+    </form>
+    <p>Already have an account? <a href="/login">Log in here</a>.</p>
+  </div>
+</body>
+

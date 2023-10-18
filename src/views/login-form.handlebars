@@ -1,8 +1,14 @@
-<form action='/api/sessions/login' method='POST'>
-  <input id='email' name='email' type='text' placeholder='email' />
-  <input id='password' name='password' type='text' placeholder='password' />
-  <input type='submit' value='login' />
-</form>
-<a href='/register'>Register</a>
-  <a href="/api/sessions/github">Login with GitHub</a>
-  <a href="/recover-mail">Forgot your Pass</a>
+<link rel="stylesheet" type="text/css" href="styles/home.css">
+
+<body>
+  <form action='/api/sessions/login' method='POST'>
+    <input id='email' name='email' type='text' placeholder='Enter your email' />
+    <input id='password' name='password' type='password' placeholder='Enter your password' />
+    <input type='submit' value='Login' />
+    <a href='/register'>Register</a>
+    <a href="/api/sessions/github">Login with GitHub</a>
+    <a href="/recover-mail">Forgot your Pass</a>
+  </form>
+</body>
+
+</html>
