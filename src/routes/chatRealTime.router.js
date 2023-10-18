@@ -4,6 +4,5 @@ import { isUserNotAdmin } from "../middlewares/auth.js";
 
 export const routerViewChat = express.Router();
 
-
 routerViewChat.get("/", isUserNotAdmin, chatRealtimeController.index);
   

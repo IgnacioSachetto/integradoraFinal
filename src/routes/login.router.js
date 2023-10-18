@@ -4,6 +4,8 @@ import { DTOsession } from '../DAO/models/DTO/session.dto.js';
 
 export const loginRouter = express.Router();
 
+//Debido a la caracteristicas del manejo del logeo decidi no dividirlo en capas
+
 loginRouter.post('/register', passport.authenticate('register', { failureRedirect: '/error-autentificacion' }), async (req, res) => {
   return res.redirect('/login');
 });
@@ -11,14 +13,11 @@ loginRouter.post('/register', passport.authenticate('register', { failureRedirec
 loginRouter.post('/login', passport.authenticate('login', { failureRedirect: '/error-autentificacion' }), async (req, res) => {
   const user = req.user;
 
-  // Actualiza la propiedad "last_connection" con la fecha y hora actual.
   user.last_connection = new Date();
 
   try {
-    // Guarda los cambios en la base de datos usando Promesas.
     await user.save();
 
-    // Continúa con el proceso de inicio de sesión.
     if (user.username == 'adminCoder@coder.com' && user.password == 'adminCod3r123') {
       req.session.user = {
         email: 'adminCoder@coder.com',
@@ -39,7 +38,6 @@ loginRouter.post('/login', passport.authenticate('login', { failureRedirect: '/e
 
     return res.redirect('/vista/products');
   } catch (error) {
-    // Maneja cualquier error que pueda ocurrir al guardar en la base de datos.
     console.error('Error al actualizar la última conexión:', error);
     return res.status(500).json({ error: 'Error al actualizar la última conexión.' });
   }

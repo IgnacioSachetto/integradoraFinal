@@ -1,5 +1,8 @@
 import dotenv from 'dotenv';
 import { connect } from "mongoose";
+import CustomError from '../services/errors/custom-error.js';
+import EErrors from '../services/errors/enums.js';
+
 
 dotenv.config();
 

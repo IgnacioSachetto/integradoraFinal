@@ -2,44 +2,18 @@ const socket = io();
 
 let name = "";
 
-async function asyncWrapper() {
-  const { value: enteredName } = await Swal.fire({
-    title: "Enter your name",
-    input: "text",
-    inputLabel: "Your name",
-    inputValue: "",
-    showCancelButton: true,
-    allowOutsideClick: false,
-    inputValidator: (value) => {
-      if (!value) {
-        return "Please complete the field";
-      }
-    },
-  });
-  name = enteredName;
-  document.getElementById("span-name").innerHTML = name;
+async function setName() {
+  name = prompt("Enter your name:");
+  if (name) {
+    document.getElementById("span-nombre").textContent = name;
+  }
 }
 
-asyncWrapper();
+setName();
 
 const chatBox = document.getElementById("input-msg");
 
-chatBox.addEventListener("keyup", ({ key }) => {
-  if (key === "Enter") {
-    const message = chatBox.value.trim();
-    if (message !== "") {
-      socket.emit("msg_front_to_back", {
-        user: name,
-        msg: message,
-      });
-      chatBox.value = "";
-    }
-  }
-});
-
-const sendButton = document.querySelector(".btn-send");
-
-sendButton.addEventListener("click", () => {
+const sendMessage = () => {
   const message = chatBox.value.trim();
   if (message !== "") {
     socket.emit("msg_front_to_back", {
@@ -48,9 +22,9 @@ sendButton.addEventListener("click", () => {
     });
     chatBox.value = "";
   }
-});
+};
 
-socket.on("msg_back_to_front", (msgs) => {
+const displayMessages = (msgs) => {
   const msgContainer = document.getElementById("div-msg");
   let content = "";
   msgs.forEach((msg) => {
@@ -58,4 +32,22 @@ socket.on("msg_back_to_front", (msgs) => {
   });
   msgContainer.innerHTML = content;
   msgContainer.scrollTop = msgContainer.scrollHeight;
+};
+
+socket.on("msg_back_to_front", (msgs) => {
+  displayMessages(msgs);
+});
+
+socket.emit("request_initial_messages");
+
+chatBox.addEventListener("keyup", (event) => {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
+});
+
+const sendButton = document.querySelector(".btn-send");
+
+sendButton.addEventListener("click", () => {
+  sendMessage();
 });

@@ -64,7 +64,8 @@ class ProductService {
     return product;
   }
 
-  async createProduct(title, description, code, price, status, stock, category, thumbnails) {
+  async createProduct(title, description, code, price, status, stock, category) {
+    console.log("Aca" + title)
     const products = await modelProduct.getAllProducts();
     let productcreated = null;
     let existcode = products.docs.find((p) => p.code === code);
@@ -75,8 +76,8 @@ class ProductService {
         user: {},
       });
     } else {
-      this.validatePostProduct(title, description, code, price, status, stock, category, thumbnails);
-      productcreated = await modelProduct.createProduct(title, description, code, price, status, stock, category, thumbnails);
+      //this.validatePostProduct(title, description, code, price, status, stock, category);
+      productcreated = await modelProduct.createProduct(title, description, code, price, status, stock, category);
       return productcreated;
     }
   }
