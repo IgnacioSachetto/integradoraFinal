@@ -1,5 +1,3 @@
-// mailController.js
-
 import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import CustomError from '../services/errors/custom-error.js';

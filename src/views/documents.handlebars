@@ -1,4 +1,6 @@
-<div>
+<link rel="stylesheet" type="text/css" href="/styles/documents.css">
+
+<div class="container">
   <h1>Document Upload</h1>
   <form action="/api/users/{{uid}}/documents" method="POST" enctype="multipart/form-data">
     <select name="category" required>
@@ -9,7 +11,7 @@
 
     <input type="file" name="file" accept=".pdf, .doc, .docx" required>
 
-    <button type="submit">Upload Document</button>
+    <button type="submit" class="btn">Upload Document</button>
   </form>
 
   {{#if hasUploadedDocuments}}

@@ -94,6 +94,7 @@ class ProductControler {
           nextLink: postLink,
           user: foundUser,
           cartid: cart._id.toString(),
+          userid: user._id.toString(),
         });
       } else {
         CustomError.createError({
