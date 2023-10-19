@@ -1,11 +1,11 @@
 import { modelCart } from "../DAO/models/db/carts.model.db.js";
 import Errors from '../services/errors/enums.js';
 
-export function isAmdin(req, res, next) {
+export function isAdmin(req, res, next) {
   if (req.session.user.rol == 'admin') {
     return next();
   }
-  return res.status(401).render('error-page', { msg: 'please log in as ADMIN!' });
+  return res.status(401).render('error-page', { msg: 'You will need ADMIN priviledges' });
 }
 
 
@@ -13,14 +13,21 @@ export function isUser(req, res, next) {
   if (req.session.email) {
     return next();
   }
-  return res.status(401).render('error-page', { msg: 'please log in!' });
+  return res.status(401).render('error-page', { msg: 'Please log in!' });
 }
 
 export function isPremium(req, res, next) {
   if (req.session.email) {
     return next();
   }
-  return res.status(401).render('error-page', { msg: 'please log in as premium!' });
+  return res.status(401).render('error-page', { msg: 'You will need PREMIUM priviledges' });
+}
+
+export function isPremiumOrAdmin(req, res, next) {
+  if (req.session.user.rol == 'admin' || req.session.user.rol == 'premium') {
+    return next();
+  }
+  return res.status(401).render('error-page', { msg: 'You will need PREMIUM or ADMIN priviledges' });
 }
 
 export function isUserNotAdmin(req, res, next) {
@@ -29,7 +36,7 @@ export function isUserNotAdmin(req, res, next) {
   if (req.session.user.email && req.session.user.rol == 'user') {
     return next();
   }
-  return res.status(401).render('error-page', { msg: 'please log in USER NOT ADMIN!' });
+  return res.status(401).render('error-page', { msg: 'Please log in USER NOT ADMIN!' });
 }
 
 export async function isUserOwner(req, res, next) {
@@ -37,7 +44,7 @@ export async function isUserOwner(req, res, next) {
   if (req.user?.email && req.user?._id.toString()===cart.user?.toString()) {
     return next();
   }
-  return res.status(401).render('error-page', { msg: 'please log in AS ADMIN!' });
+  return res.status(401).render('error-page', { msg: 'You will need ADMIN priviledges' });
 }
 
 export function checkLogin(req, res, next) {
@@ -47,7 +54,7 @@ export function checkLogin(req, res, next) {
     }
   } catch (e) {
     logger.error(e);
-    const isLogin = 'Debes iniciar sesión para acceder a esta página';
+    const isLogin = 'Please log in to visualize the page';
     return res.status(201).render('error', { isLogin });
   }
 }
@@ -56,7 +63,7 @@ export function checkAdmin(req, res, next) {
   if (req.session?.user?.rol == 'admin') {
     return next();
   } else {
-    const isAdmin = 'Debes ser administrador para acceder a esta página';
+    const isAdmin = 'You will need ADMIN permision';
     return res.status(201).render('error', { isAdmin });
   }
 }

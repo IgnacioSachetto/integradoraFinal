@@ -3,8 +3,8 @@ import { modelProduct } from '../DAO/models/db/products.model.db.js';
 import CustomError from '../services/errors/custom-error.js';
 import EErrors from '../services/errors/enums.js';
 class ProductService {
-  validatePostProduct(title, description, code, price, status, stock, category, thumbnails) {
-    if (!title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
+  validatePostProduct(title, description, code, price, status, stock, category, owner) {
+    if (!title || !description || !code || !price || !status || !stock || !category || !owner) {
       CustomError.createError({
         name: 'VALDIATION ERROR',
         cause: 'Parametros Faltantes o incorrectos.',
@@ -64,8 +64,7 @@ class ProductService {
     return product;
   }
 
-  async createProduct(title, description, code, price, status, stock, category) {
-    console.log("Aca" + title)
+  async createProduct( owner, title, description, code, price, status, stock, category   ) {
     const products = await modelProduct.getAllProducts();
     let productcreated = null;
     let existcode = products.docs.find((p) => p.code === code);
@@ -76,8 +75,9 @@ class ProductService {
         user: {},
       });
     } else {
-      //this.validatePostProduct(title, description, code, price, status, stock, category);
-      productcreated = await modelProduct.createProduct(title, description, code, price, status, stock, category);
+      //this.validatePostProduct(title, description, code, price, status, stock, category , owner);
+      console.log("anterior : " + owner );
+      productcreated = await modelProduct.createProduct(owner, title, description, code, price, status, stock, category );
       return productcreated;
     }
   }

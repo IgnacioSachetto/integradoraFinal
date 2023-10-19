@@ -4,6 +4,10 @@
 <div class="realtimeproducts-container">
   <form id="form-products">
     <div class="newProduct">
+       <div class="input-form" style="display: none;">
+        <label for="owner">Owner:</label>
+        <input id="owner" type="text" name="owner" placeholder="Owner" readonly value="{{this.userEmail}}" />
+      </div>
       <div class="input-form">
         <label for="title">Title:</label>
         <input id="title" type="text" name="title" placeholder="Title" required />
@@ -36,8 +40,10 @@
         <label for="status">Status:</label>
         <input id="status" type="checkbox" name="status" />
       </div>
+
+
       <input id="btn-form" type="submit" value="Crear Producto" />
-    </div>
+
   </form>
 </div>
 

@@ -1,3 +1,7 @@
+//USER
+//Admin
+//Premium
+
 import cookieParser from 'cookie-parser';
 import dotenv from 'dotenv';
 import express from 'express';

@@ -1,5 +1,5 @@
 import express from 'express';
-import { isAmdin, isUser } from '../middlewares/auth.js';
+import { isUser } from '../middlewares/auth.js';
 export const viewsRouter = express.Router();
 
 viewsRouter.get('', (req, res) => {

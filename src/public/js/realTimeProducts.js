@@ -4,6 +4,7 @@ let formProducts = document.getElementById("form-products")
 formProducts.addEventListener("submit", (e) => {
   e.preventDefault();
   let newProduct = {
+    owner: document.getElementById("owner").value,
     title: document.getElementById("title").value,
     description: document.getElementById("description").value,
     price: document.getElementById("price").value,

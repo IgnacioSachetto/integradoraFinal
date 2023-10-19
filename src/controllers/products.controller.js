@@ -45,55 +45,85 @@ class ProductControler {
   }
 
 
-  async getAllVista  (req, res) {
-  try {
-    const limit = req.query.limit || 3;
-    const page = req.query.page || 1;
-    const query = req.query.query;
-    const sort = req.query.sort;
-    const requestUrl = req.originalUrl;
-    const allProducts = await productService.getAllProducts(limit, page, query, sort);
-    const previusLink = await productService.getPrevLink(requestUrl, page, allProducts.hasPrevPage);
-    const postLink = await productService.getNextLink(requestUrl, page, allProducts.hasNextPage);
-    const firstName = req.session.user?.firstName;
-    const lastName = req.session.user?.lastName;
-    const email = req.session.user?.email;
-    const rol = req.session.user?.rol;
-    const cart = await cartService.createCart(req.session.user?._id.toString())
+  async getAllVista(req, res) {
+    try {
+      const limit = req.query.limit || 5;
+      const page = req.query.page || 1;
+      const query = req.query.query;
+      const sort = req.query.sort;
+      const requestUrl = req.originalUrl;
+      const result = await productService.getAllProducts(limit, page, query, sort, requestUrl);
 
-    const foundUser = {
-      firstName: firstName,
-      lastName: lastName,
-      rol: rol,
-      email: email,
-    };
+      if (result.products) {
+        const allProducts = result.products.docs;
+        const pagingCounter = result.pagingCounter;
+        const totalPages = result.products.totalPages;
+        const hasPrevPage = result.products.hasPrevPage;
+        const hasNextPage = result.products.hasNextPage;
+        const prevPage = result.products.prevPage;
+        const nextPage = result.products.nextPage;
+        const prevLink = result.prevlink;
+        const postLink = result.nextlink;
 
-    res.status(200).render('products', {
-      p: allProducts.products.docs?.map((product) => ({
-        name: product.title,
-        description: product.description,
-        price: product.price,
-        stock: product.stock,
-        id: product._id,
-      })),
-      pagingCounter: allProducts.pagingCounter,
-      page: allProducts.page,
-      totalPages: allProducts.totalPages,
-      hasPrevPage: allProducts.hasPrevPage,
-      hasNextPage: allProducts.hasNextPage,
-      prevPage: allProducts.prevPage,
-      nextPage: allProducts.nextPage,
-      prevLink: previusLink,
-      nextLink: postLink,
-      user: foundUser,
-      cartid: cart._id.toString(),
-    });
+        const user = req.session.user;
+        const cart = await cartService.createCart(user._id.toString());
+        const foundUser = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          rol: user.rol,
+          email: user.email,
+        };
 
-  } catch (error) {
-    console.error('Error al obtener productos:', error);
-    res.status(500).json({ error: 'Error al obtener productos.' });
+        res.status(200).render('products', {
+          p: allProducts?.map((product) => ({
+            name: product.title,
+            description: product.description,
+            price: product.price,
+            stock: product.stock,
+            id: product._id,
+          })),
+          pagingCounter: pagingCounter,
+          page: page,
+          totalPages: totalPages,
+          hasPrevPage: hasPrevPage,
+          hasNextPage: hasNextPage,
+          prevPage: prevPage,
+          nextPage: nextPage,
+          prevLink: prevLink,
+          nextLink: postLink,
+          user: foundUser,
+          cartid: cart._id.toString(),
+        });
+      } else {
+        CustomError.createError({
+          name: 'Error Entrada Invalida',
+          cause: 'Parametros Faltantes o incorrectos.',
+          message: 'Algunos de los parámetros requeridos están ausentes o son incorrectos para completar la petición.',
+          code: EErrors.INVALID_INPUT_ERROR,
+        });
+      }
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+      res.status(500).json({ error: 'Error al obtener productos.' });
+    }
   }
-};
+
+  async getVistaCreate(req, res) {
+    try {
+      const allProducts = await productService.getAllProducts();
+      const userEmail = req.user.email;
+
+      return res.render("realTimeProducts", { allProducts: await allProducts, userEmail });
+    } catch (e) {
+      CustomError.createError({
+        name: 'Error Del Servidor',
+        cause: 'Ocurrió un error inesperado en el servidor. La operación no pudo completarse.',
+        message: 'Lo sentimos, ha ocurrido un error inesperado en el servidor. Por favor, contacta al equipo de soporte.',
+        code: EErrors.ERROR_INTERNO_SERVIDOR,
+      });
+    }
+  }
+
 
   async getOne(req, res) {
     try {
@@ -124,8 +154,9 @@ class ProductControler {
 
   async create(req, res) {
     try {
-      const owner = req.user.email
-      const { title, description, code, price, status = true, stock, category, thumbnails } = req.body;
+      const owner = req.user.email;
+      console.log(owner);
+      const { title, description, code, price, status = true, stock, category, thumbnails   } = req.body;
       const ProductCreated = await productService.createProduct(title, description, code, price, status, stock, category, thumbnails,owner);
       if (ProductCreated.code === 400) {
         CustomError.createError({
@@ -145,7 +176,7 @@ class ProductControler {
           CustomError.createError({
             name: 'Error Creacion',
             cause: 'Parametros Faltantes o incorrectos.',
-            message: 'os parámetros proporcionados son insuficientes o inválidos para llevar a cabo la creación. Por favor, revisa la información suministrada e intenta nuevamente.',
+            message: 'Los parámetros proporcionados son insuficientes o inválidos para llevar a cabo la creación. Por favor, revisa la información suministrada e intenta nuevamente.',
             code: EErrors.INVALID_INPUT_ERROR,
           });
         }

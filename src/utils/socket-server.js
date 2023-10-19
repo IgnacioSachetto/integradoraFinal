@@ -36,19 +36,19 @@ export function connectSocket(httpServer) {
 
     socket.on('new-product-created', async (newProduct) => {
       try {
-        console.log(newProduct)
-        await productService.createProduct(newProduct.title, newProduct.description, newProduct.code, newProduct.price, newProduct.status, newProduct.stock, newProduct.category);
+        console.log(newProduct);
+        await productService.createProduct( newProduct.owner , newProduct.title, newProduct.description, newProduct.code, newProduct.price, newProduct.status, newProduct.stock, newProduct.category );
         let allProducts = await productService.getAllProducts(30, 1);
         console.log(allProducts);
         socketServer.emit('all-the-products', allProducts);
       } catch (error) {
-        console.log(error);
-       /* CustomError.createError({
+
+        CustomError.createError({
           name: 'Error De Conexion por Socket',
           cause: 'No se pudo establecer una conexión con Socket',
           message: 'Ocurrió un error al intentar conectarse con Socket.',
           code: EErrors.SOCKET_CONNECTION_ERROR,
-        });*/
+        });
       }
     });
 

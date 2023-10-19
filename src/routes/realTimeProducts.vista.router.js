@@ -1,8 +1,11 @@
 import express from "express";
-import {productService} from "../services/products.service.js";
+import { productControler } from "../controllers/products.controller.js";
 
-export const routerVistaRealTimeProducts = express.Router()
-routerVistaRealTimeProducts.get("/", async (req, res) => {
-    const allProducts = productService.getAllProducts()
+export const routerVistaRealTimeProducts = express.Router();
+
+/*routerVistaRealTimeProducts.get("/", isPremiumOrAdmin, async (req, res) => {
+    const allProducts = productService.getAllProducts();
     return res.render("realTimeProducts", await allProducts);
-});
+});*/
+
+routerVistaRealTimeProducts.get("/", productControler.getVistaCreate);
