@@ -8,6 +8,7 @@
                 <th>Name</th>
                 <th>Email</th>
                 <th>Rol</th>
+                <th>Change Rol</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -18,13 +19,18 @@
                 <td>{{this.email}}</td>
                 <td>{{this.rol}}</td>
                 <td>
-                    <button class="btn-delete" type="button" value="{{this.id}}">Eliminar</button>
+
+                    <button class="btn-change-rol" type="button" value="{{this.id}}">Change Rol</button>
+                </td>
+                <td>
+                    <button class="btn-delete" type="button" value="{{this.id}}">Delete</button>
                 </td>
             </tr>
             {{/each}}
         </tbody>
     </table>
 </div>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/users.js"></script>

@@ -29,11 +29,12 @@ function setDelete(btnDelete) {
   }
 }
 
+
+
 socket.on('reload-page', () => {
   location.reload();
 });
 
-// Agrega manejo de eventos para eliminar el usuario de la tabla en tiempo real
 socket.on("delete-user-in-table", (idToDelete) => {
   btnDelete = document.querySelectorAll(".btn-delete");
   for (let btn of btnDelete) {
@@ -44,3 +45,37 @@ socket.on("delete-user-in-table", (idToDelete) => {
     }
   }
 });
+
+let btnChangeRol = document.querySelectorAll(".btn-change-rol");
+setChangeRol(btnChangeRol);
+
+function setChangeRol(btnChangeRol) {
+    for (let btn of btnChangeRol) {
+      btn.addEventListener("click", () => {
+        Swal.fire({
+          title: 'Change User Role',
+          text: `You will change the role of the user with id: "${btn.value}"`,
+          icon: 'info',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Change Role',
+          html:
+              '<input id="swal-input1" class="swal2-input" placeholder="Select the new role" ' +
+          'list="roles" ><datalist id="roles" readonly><option value="user"><option value="premium">' +
+          '<option value="admin"></datalist>'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            const idToChangeRol = btn.value;
+            const newRol = document.getElementById('swal-input1').value;
+            socket.emit("change-user-rol", { idToChangeRol: idToChangeRol, newRol: newRol });
+            Swal.fire(
+              'Role Changed!',
+              'The user role has been updated.',
+              'success'
+            );
+          }
+        });
+      });
+    }
+  }

@@ -91,6 +91,15 @@ class UserService {
     }
   }
 
+  async changeRolByAdmin(id, newRol) {
+    const user = await this.getOneUser(id);
+    user.rol = newRol;
+
+    const updatedUser = await user.save();
+    return updatedUser;
+  }
+
+
   async updateUser(id, firstName, lastName, email) {
     this.validatePostUser(id, firstName, lastName, email);
     const userUptaded = await modelUsuario.updateUser(id, firstName, lastName, email);
