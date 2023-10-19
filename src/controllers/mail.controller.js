@@ -75,3 +75,33 @@ export async function sendMailRecovery({ email, token }) {
     });
   }
 }
+
+export async function sendDeletedProduct(deletedProduct) {
+  try {
+    const result = await mailController.sendMail({
+      from: process.env.GOOGLE_EMAIL,
+      to: 'nachosachetto1998@hotmail.com', // Cambia esta dirección de correo electrónico según tus necesidades
+      subject: "Producto Borrado",
+      html: `
+        <div>
+          <h1>Producto Borrado</h1>
+          <p>Detalle Producto:</p>
+          <ul>
+            <li>Código: ${deletedProduct.title}</li>
+            <li>Código: ${deletedProduct._id}</li>
+          </ul>
+        </div>
+      `,
+    });
+
+    selectedLogger.info(result);
+    selectedLogger.info("Email sent successfully");
+  } catch (e) {
+    CustomError.createError({
+      name: 'Error Envio Mail',
+      cause: 'Ocurrió un error inesperado enviando su notificación',
+      message: 'Error inesperado en el servidor. Por favor, contacta al equipo de soporte.',
+      code: EErrors.MAIL_SEND_ERROR,
+    });
+  }
+}

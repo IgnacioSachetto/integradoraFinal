@@ -1,5 +1,6 @@
 import { Server } from 'socket.io';
 import { MsgModel } from '../DAO/models/mongoose/msgs.model.js';
+import { sendDeletedProduct } from "../controllers/mail.controller.js";
 import CustomError from '../services/errors/custom-error.js';
 import EErrors from '../services/errors/enums.js';
 import { userService } from '../services/users.service.js';
@@ -67,7 +68,9 @@ export function connectSocket(httpServer) {
     });
     socket.on('delete-product', async (id) => {
       try {
+        const deletedProduct = await productService.getProduct(id);
         await productService.deleteProduct(id);
+        await sendDeletedProduct(deletedProduct);
         let allProducts = await productService.getAllProducts(30, 1);
         socketServer.emit('all-the-products', allProducts);
 
