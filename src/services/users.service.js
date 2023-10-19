@@ -121,6 +121,20 @@ class UserService {
     const deleted = await modelUsuario.deleteUser(id);
     return deleted;
   }
+
+  async deleteInactiveUsers() {
+    try {
+      const twoDaysAgo = new Date();
+      twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+
+      const deletedUsers = await modelUsuario.deleteMany(twoDaysAgo);
+
+      return deletedUsers;
+    } catch (error) {
+      throw error;
+    }
+  }
+
 }
 
 export const userService = new UserService();

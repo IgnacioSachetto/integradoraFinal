@@ -18,4 +18,6 @@ routerUsers.post('/:uid/documents', multerMiddleware.single('file'), userControl
 
 routerUsers.put('/:id', userController.update);
 
+routerUsers.delete('/', userController.deleteInactiveUsers);
+
 routerUsers.delete('/:id', userController.delete);

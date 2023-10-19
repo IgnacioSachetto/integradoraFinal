@@ -25,6 +25,15 @@ class ModelUsuario {
     const deleted = await UserModel.deleteOne({ _id: id });
     return deleted;
   }
+
+  async deleteMany(lastConnectionThreshold) {
+    const deletedUsers = await UserModel.deleteMany({
+      last_connection: { $lte: lastConnectionThreshold },
+    });
+
+    return deletedUsers;
+  }
+
 }
 
 export const modelUsuario = new ModelUsuario();

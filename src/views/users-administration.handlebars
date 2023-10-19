@@ -7,6 +7,7 @@
             <tr>
                 <th>Name</th>
                 <th>Email</th>
+                <th>Last Connection</th>
                 <th>Rol</th>
                 <th>Change Rol</th>
                 <th>Actions</th>
@@ -17,6 +18,7 @@
             <tr>
                 <td>{{this.name}}</td>
                 <td>{{this.email}}</td>
+                <td>{{this.lastconnection}}</td>
                 <td>{{this.rol}}</td>
                 <td>
 
@@ -29,6 +31,8 @@
             {{/each}}
         </tbody>
     </table>
+    <button class="btn-deleteinactives" id="check-inactive-users">Verificar usuarios inactivos</button>
+
 </div>
 
 <script src="/socket.io/socket.io.js"></script>

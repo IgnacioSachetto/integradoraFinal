@@ -46,6 +46,38 @@ socket.on("delete-user-in-table", (idToDelete) => {
   }
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  const checkInactiveUsersButton = document.getElementById("check-inactive-users");
+
+  checkInactiveUsersButton.addEventListener("click", () => {
+    fetch("/api/users", {
+      method: "DELETE",
+    })
+      .then((response) => {
+        if (response.status === 200) {
+          Swal.fire({
+            icon: "success",
+            title: "Éxito",
+            text: "Usuarios inactivos verificados y eliminados con éxito.",
+          }).then(() => {
+            window.location.reload();
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Error",
+            text: "Error al verificar usuarios inactivos.",
+          });
+        }
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+  });
+});
+
+
+
 let btnChangeRol = document.querySelectorAll(".btn-change-rol");
 setChangeRol(btnChangeRol);
 

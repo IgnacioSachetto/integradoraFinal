@@ -57,7 +57,7 @@ body {
   }
 
   .btn-change-rol,
-  .btn-delete {
+  .btn-delete, .btn-deleteinactives {
     background-color: #007bff;
     color: white;
     border: none;
@@ -71,7 +71,10 @@ body {
     background-color: #ff0000;
   }
 
+  .btn-deleteinactives {
+    background-color: #ff0000;
+  }
   .btn-change-rol:hover,
-  .btn-delete:hover {
+  .btn-delete:hover, .btn-deleteinactives:hover {
     background-color: #0056b3;
   }

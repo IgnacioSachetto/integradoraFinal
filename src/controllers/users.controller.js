@@ -1,7 +1,6 @@
 import CustomError from '../services/errors/custom-error.js';
 import EErrors from '../services/errors/enums.js';
 import { userService } from '../services/users.service.js';
-
 class UserController {
   async getAll(req, res) {
     try {
@@ -185,6 +184,7 @@ class UserController {
           name: `${user.firstName} ${user.lastName}`,
           email: user.email,
           rol: user.rol,
+          lastconnection: user.last_connection
         })),
       });
     } catch (error) {
@@ -192,6 +192,27 @@ class UserController {
       res.status(500).json({ error: 'Error al obtener usuarios.' });
     }
   }
+
+
+  async deleteInactiveUsers(req, res) {
+    try {
+      const deletedUsers = await userService.deleteInactiveUsers();
+
+      if (deletedUsers.deletedCount > 0) {
+        console.log(deletedUsers);
+        res.status(200).json({
+          status: 'success',
+        });
+      } else {
+        res.status(200).json({ message: 'No se encontraron usuarios inactivos.' });
+      }
+    } catch (error) {
+      console.error('Error al eliminar usuarios inactivos:', error);
+      res.status(500).json({ error: 'Error al eliminar usuarios inactivos.' });
+    }
+  }
+
+
 
   async changerol(req, res) {
     try {
