@@ -66,6 +66,7 @@ class ProductControler {
         const postLink = result.nextlink;
 
         const user = req.session.user;
+
         const cart = await cartService.createCart(user._id.toString());
         const foundUser = {
           firstName: user.firstName,
@@ -149,6 +150,7 @@ class ProductControler {
             code: product.code,
             category: product.category
           })),
+           userEmail: req.user.email,
           userName: req.session.user.firstName,
           pagingCounter: pagingCounter,
           page: page,

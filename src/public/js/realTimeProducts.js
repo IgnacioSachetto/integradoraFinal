@@ -57,13 +57,13 @@ function setDelete(btnDelete) {
   for (let btn of btnDelete) {
     btn.addEventListener("click", () => {
       Swal.fire({
-        title: 'Do you want to delete',
-        text: `you are going to delete the product with the ID: "${btn.value}"`,
+        title: 'Delete Product',
+        text: `You will delete the product id: "${btn.value}"`,
         icon: 'warning',
         showCancelButton: true,
         confirmButtonColor: '#3085d6',
         cancelButtonColor: '#d33',
-        confirmButtonText: 'Yes, delete it!'
+        confirmButtonText: 'Yes'
       }).then((result) => {
         if (result.isConfirmed) {
           let idToDelete = btn.value
@@ -78,6 +78,11 @@ function setDelete(btnDelete) {
     });
   };
 }
+
+socket.on('reload-page', () => {
+  location.reload();
+});
+
 
 setDelete(btnDelete);
 socket.on("delete-product-in-table", (idToDelete) => {

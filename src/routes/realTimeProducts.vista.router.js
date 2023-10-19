@@ -1,5 +1,6 @@
 import express from "express";
 import { productControler } from "../controllers/products.controller.js";
+import { isPremiumOrAdmin } from '../middlewares/auth.js';
 
 export const routerVistaRealTimeProducts = express.Router();
 
@@ -8,4 +9,4 @@ export const routerVistaRealTimeProducts = express.Router();
     return res.render("realTimeProducts", await allProducts);
 });*/
 
-routerVistaRealTimeProducts.get("/", productControler.getVistaCreate);
+routerVistaRealTimeProducts.get("/", isPremiumOrAdmin, productControler.getVistaCreate);
