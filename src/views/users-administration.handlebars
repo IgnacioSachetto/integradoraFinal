@@ -1,0 +1,30 @@
+<link rel="stylesheet" type="text/css" href="/styles/users.css">
+
+<div class="container">
+    <h1>User Administration</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Rol</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="dynamic-user-list">
+            {{#each allUsers}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.email}}</td>
+                <td>{{this.rol}}</td>
+                <td>
+                    <button class="btn-delete" type="button" value="{{this.id}}">Eliminar</button>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+</div>
+<script src="/socket.io/socket.io.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="/js/users.js"></script>

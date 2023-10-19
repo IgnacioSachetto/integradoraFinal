@@ -175,6 +175,24 @@ class UserController {
     }
   }
 
+  async getVistaUsers(req, res) {
+    try {
+      const allUsers = await userService.getAllUsers();
+
+      res.status(200).render('users-administration', {
+        allUsers: allUsers?.map((user) => ({
+          id: user._id,
+          name: `${user.firstName} ${user.lastName}`,
+          email: user.email,
+          rol: user.rol,
+        })),
+      });
+    } catch (error) {
+      console.error('Error al obtener usuarios:', error);
+      res.status(500).json({ error: 'Error al obtener usuarios.' });
+    }
+  }
+
   async changerol(req, res) {
     try {
       const { uid } = req.params;
@@ -197,5 +215,8 @@ class UserController {
     }
   }
 }
+
+
+
 
 export const userController = new UserController();

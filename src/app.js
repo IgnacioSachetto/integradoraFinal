@@ -32,6 +32,7 @@ import { routerVistaRealTimeProducts } from './routes/realTimeProducts.vista.rou
 import { routerRecoverMail } from './routes/recoverEmail.router.js';
 import { routerRecoverPass } from './routes/recoverPass.router.js';
 import { routerUsers } from './routes/users.router.js';
+import { routerVistaUsers } from './routes/users.vista.router.js';
 import { viewsRouter } from './routes/views.router.js';
 
 dotenv.config();
@@ -74,6 +75,7 @@ app.use('/vista/realtimeproducts', routerVistaRealTimeProducts);
 app.use('/vista/cart', routerVistaCart);
 app.use('/api/users', routerUsers);
 app.use('/vista/products', routerVistaProducts);
+app.use('/vista/users-administration', routerVistaUsers);
 app.use('/', viewsRouter);
 app.use('/api/sessions', loginRouter);
 app.use('/chatsocket', routerViewChat);

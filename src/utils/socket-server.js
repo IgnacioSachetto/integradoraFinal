@@ -85,7 +85,22 @@ export function connectSocket(httpServer) {
       }
     });
 
+    socket.on('delete-user', async (id) => {
+      try {
+        await userService.deleteUser(id);
+        let allUsers = await userService.getAllUsers;
+        socketServer.emit('all-the-users', allUsers);
 
+        socketServer.emit('reload-page');
+      } catch (error) {
+        CustomError.createError({
+          name: 'Error De Conexion por Socket',
+          cause: 'No se pudo establecer una conexión con Socket',
+          message: 'Ocurrió un error al intentar conectarse con Socket.',
+          code: EErrors.SOCKET_CONNECTION_ERROR,
+        });
+      }
+    });
 
   });
 }
