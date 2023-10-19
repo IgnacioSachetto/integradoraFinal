@@ -184,8 +184,13 @@ class UserController {
           name: `${user.firstName} ${user.lastName}`,
           email: user.email,
           rol: user.rol,
-          lastconnection: user.last_connection
-        })),
+          lastconnection: user.last_connection.toLocaleString('es-AR', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+            hour: '2-digit',
+            minute: '2-digit',
+          }),        })),
       });
     } catch (error) {
       console.error('Error al obtener usuarios:', error);
