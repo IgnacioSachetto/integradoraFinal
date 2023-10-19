@@ -11,6 +11,25 @@ class ModelProduct {
     return products;
   }
 
+  async getAllProductsOwner(limit, page, query, sort, userEmail) {
+    let products = null;
+
+    const queryFilter = {
+      $or: [{ status: query }, { category: query }],
+      owner: userEmail,
+    };
+
+    if (typeof query === 'string') {
+      products = await ProductsModel.paginate(queryFilter, { limit: limit, page: page, sort: sort });
+    } else {
+      products = await ProductsModel.paginate({ owner: userEmail }, { limit: limit, page: page, sort: sort }); // Incluye el filtro por owner (propietario) aquí
+    }
+
+    return products;
+  }
+
+
+
   async getProduct(id) {
     const product = await ProductsModel.findById({ _id: id });
     return product;

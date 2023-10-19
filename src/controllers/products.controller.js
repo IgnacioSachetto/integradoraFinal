@@ -110,19 +110,72 @@ class ProductControler {
 
   async getVistaCreate(req, res) {
     try {
-      const allProducts = await productService.getAllProducts();
+      const limit = req.query.limit || 5;
+      const page = req.query.page || 1;
+      const query = req.query.query;
+      const sort = req.query.sort;
+      const requestUrl = req.originalUrl;
       const userEmail = req.user.email;
 
-      return res.render("realTimeProducts", { allProducts: await allProducts, userEmail });
-    } catch (e) {
-      CustomError.createError({
-        name: 'Error Del Servidor',
-        cause: 'Ocurrió un error inesperado en el servidor. La operación no pudo completarse.',
-        message: 'Lo sentimos, ha ocurrido un error inesperado en el servidor. Por favor, contacta al equipo de soporte.',
-        code: EErrors.ERROR_INTERNO_SERVIDOR,
-      });
+      const resultWithOwner = await productService.getAllProductsWithOwner(limit, page, query, sort, requestUrl, userEmail);
+
+      if (resultWithOwner.products) {
+        const allProducts = resultWithOwner.products.docs;
+        const pagingCounter = resultWithOwner.pagingCounter;
+        const totalPages = resultWithOwner.products.totalPages;
+        const hasPrevPage = resultWithOwner.products.hasPrevPage;
+        const hasNextPage = resultWithOwner.products.hasNextPage;
+        const prevPage = resultWithOwner.products.prevPage;
+        const nextPage = resultWithOwner.products.nextPage;
+        const prevLink = resultWithOwner.prevlink;
+        const postLink = resultWithOwner.nextlink;
+
+        const user = req.session.user;
+        const cart = await cartService.createCart(user._id.toString());
+        const foundUser = {
+          firstName: user.firstName,
+          lastName: user.lastName,
+          rol: user.rol,
+          email: user.email,
+        };
+
+        res.status(200).render('realTimeProducts', {
+          allProducts: allProducts?.map((product) => ({
+            id: product._id,
+            title: product.title,
+            description: product.description,
+            price: product.price,
+            stock: product.stock,
+            code: product.code,
+            category: product.category
+          })),
+          userName: req.session.user.firstName,
+          pagingCounter: pagingCounter,
+          page: page,
+          totalPages: totalPages,
+          hasPrevPage: hasPrevPage,
+          hasNextPage: hasNextPage,
+          prevPage: prevPage,
+          nextPage: nextPage,
+          prevLink: prevLink,
+          nextLink: postLink,
+          user: foundUser,
+          cartid: cart._id.toString(),
+        });
+      } else {
+        CustomError.createError({
+          name: 'Error Entrada Invalida',
+          cause: 'Parametros Faltantes o incorrectos.',
+          message: 'Algunos de los parámetros requeridos están ausentes o son incorrectos para completar la petición.',
+          code: EErrors.INVALID_INPUT_ERROR,
+        });
+      }
+    } catch (error) {
+      console.error('Error al obtener productos:', error);
+      res.status(500).json({ error: 'Error al obtener productos.' });
     }
   }
+
 
 
   async getOne(req, res) {

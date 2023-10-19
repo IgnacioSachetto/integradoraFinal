@@ -58,6 +58,19 @@ class ProductService {
     return result;
   }
 
+  async getAllProductsWithOwner(limit, page, query, sort, requestUrl, userEmail) {
+    let products = null;
+    products = await modelProduct.getAllProductsOwner(limit, page, query, sort, userEmail);
+    const prevlink = await productService.getPrevLink(requestUrl, page, products.hasPrevPage);
+    const nextlink = await productService.getNextLink(requestUrl, page, products.hasNextPage);
+    const result = {
+      products: products,
+      nextlink: nextlink,
+      prevlink: prevlink,
+    };
+    return result;
+  }
+
   async getProduct(id) {
     this.validateId(id);
     const product = await modelProduct.getProduct(id);

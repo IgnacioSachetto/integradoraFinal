@@ -47,6 +47,39 @@
   </form>
 </div>
 
+  <div class="table-container">
+        <h1>Todos tus productos {{this.userName}}</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Code</th>
+                    <th>Stock</th>
+                    <th>Category</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody id="dinamic-product-list">
+                {{#each allProducts}}
+                <tr>
+                    <td>{{this.id}}</td>
+                    <td>{{this.title}}</td>
+                    <td>{{this.description}}</td>
+                    <td>{{this.price}}</td>
+                    <td>{{this.code}}</td>
+                    <td>{{this.stock}}</td>
+                    <td>{{this.category}}</td>
+                    <td>
+                    <button type="button" class="btn-delete" value="{{this.id}}">Eliminar</button>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
 <script src="/socket.io/socket.io.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="/js/realTimeProducts.js"></script>
