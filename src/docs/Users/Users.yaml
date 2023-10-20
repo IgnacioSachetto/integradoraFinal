@@ -1,0 +1,203 @@
+# Rutas de Usuarios
+/users:
+  get:
+    summary: Obtiene todos los usuarios
+    tags:
+      - Users
+    responses:
+      '200':
+        description: Usuarios obtenidos correctamente
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                $ref: "#/components/schemas/User"
+            example:
+              - id: 1
+                firstName: "Nacho"
+                lastName: "Perez"
+                email: "nacho@example.com"
+              - id: 2
+                firstName: "María"
+                lastName: "Gómez"
+                email: "maria@example.com"
+      '500':
+        description: Error del servidor. Ocurrió un error inesperado en el servidor.
+
+
+  post:
+    summary: Crea un nuevo usuario
+    tags:
+      - Users
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NewUser"
+          example:
+            firstName: "Juan"
+            lastName: "López"
+            email: "juan@example.com"
+    responses:
+      '201':
+        description: Éxito. El usuario ha sido creado correctamente
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              id: 3
+              firstName: "Juan"
+              lastName: "López"
+              email: "juan@example.com"
+
+/users/{id}:
+  get:
+    summary: Obtiene un usuario por ID
+    tags:
+      - Users
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID del usuario que se busca
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Usuario encontrado
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              id: 1
+              firstName: "Nacho"
+              lastName: "Perez"
+              email: "nacho@example.com"
+      '404':
+        description: Usuario no encontrado
+
+
+  put:
+    summary: Actualiza un usuario por ID
+    tags:
+      - Users
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID del usuario que se va a actualizar
+        schema:
+          type: integer
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/NewUser"
+          example:
+            firstName: "Luis"
+            lastName: "Martínez"
+            email: "luis@example.com"
+    responses:
+      '200':
+        description: Éxito. El usuario ha sido actualizado correctamente
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/User"
+            example:
+              id: 1
+              firstName: "Luis"
+              lastName: "Martínez"
+              email: "luis@example.com"
+
+  delete:
+    summary: Elimina un usuario por ID
+    tags:
+      - Users
+    parameters:
+      - name: id
+        in: path
+        required: true
+        description: ID del usuario que se va a eliminar
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Éxito. El usuario ha sido eliminado correctamente
+
+/users/{uid}/documents:
+  get:
+    summary: Obtiene documentos de un usuario por UID
+    tags:
+      - Users
+    parameters:
+      - name: uid
+        in: path
+        required: true
+        description: UID del usuario para el que se buscan documentos
+        schema:
+          type: integer
+    responses:
+      '200':
+        description: Documentos obtenidos correctamente
+
+  post:
+    summary: Crea un nuevo documento para un usuario por UID
+    tags:
+      - Users
+    parameters:
+      - name: uid
+        in: path
+        required: true
+        description: UID del usuario al que se va a agregar el documento
+
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+
+    NewUser:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+
+    Documents:
+      type: array
+      items:
+        type: object
+        properties:
+          id:
+            type: integer
+          name:
+            type: string
+          reference:
+            type: string
+
+    Document:
+      type: object
+      properties:
+        status:
+          type: string
+        msg:
+          type: string
+        data:
+          type: object

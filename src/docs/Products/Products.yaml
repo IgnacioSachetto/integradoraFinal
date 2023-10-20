@@ -1,3 +1,13 @@
+openapi: 3.0.0
+info:
+  title: Documentación de API
+  version: 1.0.0
+  description: Descripción de la API
+
+servers:
+  - url: http://localhost:3000
+    description: Servidor Local
+
 paths:
   /api/products/mockingproducts:
     get:
@@ -9,6 +19,16 @@ paths:
           description: Productos simulados obtenidos correctamente
           content:
             application/json:
+              example:
+                status: "success"
+                msg: "found all products"
+                data:
+                  - id: "f4a5b8cc4b1b93feef7b93ff"
+                    title: "Licensed Metal Sausages"
+                    price: "93.00"
+                    department: "Clothing"
+                    stock: "1"
+                    image: "https://loremflickr.com/640/480/nightlife"
               schema:
                 type: array
                 items:
@@ -26,6 +46,23 @@ paths:
           description: Productos obtenidos correctamente
           content:
             application/json:
+              example:
+                status: "success"
+                msg: "Found productos"
+                payload:
+                  - owner: "admin"
+                    _id: "648e3da8ab7b42a5198d9f1c"
+                    title: "Producto N°1"
+                    description: "Prueba N°1"
+                    price: 10
+                    thumbnails:
+                      - "1"
+                      - "2"
+                      - "3"
+                    code: "code1"
+                    stock: 998
+                    status: "true"
+                    category: "Productos1"
               schema:
                 type: array
                 items:
@@ -54,3 +91,119 @@ paths:
                 $ref: "#/components/schemas/Product"
         '500':
           description: Error del servidor. Ocurrió un error inesperado en el servidor.
+
+/api/productos/{id}:
+    delete:
+      summary: Elimina un producto por ID
+      description: Elimina un producto por su ID, se requiere ser administrador.
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del producto que se va a eliminar.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Éxito. El producto ha sido eliminado correctamente.
+        '500':
+          description: Error del servidor. Ocurrió un error inesperado en el servidor.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+        '401':
+          description: No autorizado. Se requieren permisos de administrador.
+
+    put:
+      summary: Actualiza un producto por ID
+      description: Actualiza un producto por su ID, se requiere ser administrador.
+      tags:
+        - Products
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: ID del producto que se va a actualizar.
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Éxito. El producto ha sido actualizado correctamente.
+        '500':
+          description: Error del servidor. Ocurrió un error inesperado en el servidor.
+        '401':
+          description: No autorizado. Se requieren permisos de administrador.
+
+    post:
+      summary: Crea un nuevo producto
+      description: Crea un nuevo producto, se requiere ser premium o administrador.
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/NewProduct"
+      responses:
+        '201':
+          description: Éxito. El producto ha sido creado correctamente.
+        '400':
+          description: Parámetros faltantes o incorrectos.
+        '500':
+          description: Error del servidor. Ocurrió un error inesperado en el servidor.
+
+
+
+components:
+  schemas:
+    Error:
+      type: object
+      properties:
+        name:
+          type: string
+        cause:
+          type: string
+        message:
+          type: string
+        code:
+          type: string
+
+    NewProduct:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        price:
+          type: number
+        status:
+          type: boolean
+        stock:
+          type: integer
+        category:
+          type: string
+        thumbnails:
+          type: array
+          items:
+            type: string
+
+    Product:
+      type: object
+      properties:
+        id:
+          type: string
+        title:
+          type: string
+        price:
+          type: string
+        department:
+          type: string
+        stock:
+          type: string
+        image:
+          type: string

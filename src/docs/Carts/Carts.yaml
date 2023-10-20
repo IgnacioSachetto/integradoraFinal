@@ -1,7 +1,15 @@
+openapi: 3.0.0
+info:
+  title: API de Carritos
+  description: API para administrar carritos de compras.
+  version: 1.0.0
+
 paths:
   /api/carts:
     get:
       summary: Obtiene todos los carritos
+      tags:
+        - Carts
       responses:
         '200':
           description: Se obtuvieron los carritos correctamente
@@ -15,6 +23,8 @@ paths:
           description: Error del servidor. Usualmente generando la query o falla la conexión a la DB
     post:
       summary: Creación de Nuevo Carrito
+      tags:
+        - Carts
       requestBody:
         required: true
         content:
@@ -33,6 +43,8 @@ paths:
   '/api/carts/{cid}':
     get:
       summary: Obtiene un carrito por ID
+      tags:
+        - Carts
       parameters:
         - name: cid
           in: path
@@ -51,6 +63,8 @@ paths:
           description: Algunos de los parámetros requeridos están ausentes o son incorrectos para completar la petición.
     put:
       summary: Actualiza un carrito por ID
+      tags:
+        - Carts
       parameters:
         - name: cid
           in: path
@@ -75,6 +89,8 @@ paths:
           description: Algunos de los parámetros requeridos están ausentes o son incorrectos para completar la petición.
     delete:
       summary: Elimina un carrito por ID
+      tags:
+        - Carts
       parameters:
         - name: cid
           in: path
@@ -94,6 +110,8 @@ paths:
   '/api/carts/{cid}/products/{pid}':
     put:
       summary: Actualiza la cantidad de un producto en un carrito
+      tags:
+        - Carts
       parameters:
         - name: cid
           in: path
@@ -124,6 +142,8 @@ paths:
           description: Algunos de los parámetros requeridos están ausentes o son incorrectos para completar la petición.
     delete:
       summary: Elimina un producto de un carrito
+      tags:
+        - Carts
       parameters:
         - name: cid
           in: path
@@ -144,8 +164,6 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Cart"
-        '500':
-          description: Algunos de los parámetros requeridos están ausentes o son incorrectos para completar la petición.
 
 components:
   schemas:
