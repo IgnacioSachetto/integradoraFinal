@@ -204,7 +204,6 @@ class UserController {
       const deletedUsers = await userService.deleteInactiveUsers();
 
       if (deletedUsers.deletedCount > 0) {
-        console.log(deletedUsers);
         res.status(200).json({
           status: 'success',
         });
@@ -231,7 +230,6 @@ class UserController {
         });
       }
     } catch (e) {
-      console.log(e)
       CustomError.createError({
         name: 'Error Del Servidor',
         cause: 'Ocurrió un error inesperado en el servidor. La operación no pudo completarse.',

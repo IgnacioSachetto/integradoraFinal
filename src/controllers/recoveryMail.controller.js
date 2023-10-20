@@ -23,15 +23,11 @@ class RecoveryMailController {
 
       await recoveryService.saveTokenToDatabase(email, token, expire);
 
-      console.log(email, token);
-
       await sendMailRecovery({ email, token });
 
-      // Envía una respuesta de éxito al cliente
       res.status(200).json({ message: 'Verifique su correo electrónico para continuar' });
 
     } catch (error) {
-      // Manejar errores aquí
       console.error(error);
 
       res.status(500).json({ error: 'Hubo un problema al procesar la solicitud de recuperación de contraseña' });

@@ -5,8 +5,6 @@ const destination = (req, file, cb) => {
   const category = req.body.category;
   let uploadPath = 'src/multer/';
 
-  console.log(category);
-
   if (category === 'profile') {
     uploadPath = path.resolve('src/multer/profile/');
   } else if (category === 'products') {
@@ -15,7 +13,6 @@ const destination = (req, file, cb) => {
     uploadPath = path.resolve('src/multer/documents/');
   }
 
-  console.log('Multer Middleware - Destination:', uploadPath);
   cb(null, uploadPath);
 };
 

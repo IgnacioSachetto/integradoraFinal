@@ -5,7 +5,6 @@ import { createHash, isValidPassword } from '../utils/bcrypt.js';
 const recoveryService = {
   async checkEmailInDatabase(email) {
     try {
-      console.log
       const user = await UserModel.findOne({ email });
       return user;
     } catch (error) {
@@ -13,7 +12,6 @@ const recoveryService = {
     }
   },
 
-  // Guardar el token en la base de datos
   async saveTokenToDatabase(email, token, expire) {
     try {
       const tokenData = new RecoverTokensMongoose({

@@ -43,7 +43,6 @@ export function connectSocket(httpServer) {
         socketServer.emit('reload-page');
 
       } catch (error) {
-        console.log(error);
         CustomError.createError({
           name: 'Error De Conexion por Socket',
           cause: 'No se pudo establecer una conexión con Socket',

@@ -237,7 +237,6 @@ class ProductControler {
         }
       }
     } catch (e) {
-      console.log(e);
       CustomError.createError({
         name: 'Error Del Servidor',
         cause: 'Ocurrió un error inesperado en el servidor. La operación no pudo completarse.',
@@ -258,7 +257,6 @@ class ProductControler {
         data: productUptaded,
       });
     } catch (e) {
-      console.log(e);
       CustomError.createError({
         name: 'Error Del Servidor',
         cause: 'Ocurrió un error inesperado en el servidor. La operación no pudo completarse.',

@@ -22,7 +22,7 @@ class ModelProduct {
     if (typeof query === 'string') {
       products = await ProductsModel.paginate(queryFilter, { limit: limit, page: page, sort: sort });
     } else {
-      products = await ProductsModel.paginate({ owner: userEmail }, { limit: limit, page: page, sort: sort }); // Incluye el filtro por owner (propietario) aquí
+      products = await ProductsModel.paginate({ owner: userEmail }, { limit: limit, page: page, sort: sort });
     }
 
     return products;
@@ -36,7 +36,6 @@ class ModelProduct {
   }
 
   async createProduct(owner, title, description, code, price, status, stock, category, thumbnails) {
-    console.log("En create: " + " owner: " + owner + " title: " + title," description: " + description + " code: " + code + "price: " + price + "status: " + status +"stock: "+ stock +"category: " + category + "thubm: " + thumbnails)
     const productcreated = await ProductsModel.create({  owner, title, description, code, price, status, stock, category, thumbnails });
     return productcreated;
   }

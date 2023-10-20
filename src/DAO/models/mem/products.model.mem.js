@@ -12,7 +12,7 @@ class ModelProduct {
 
     const totalItems = filteredArray.length;
 
-    const sortedArray = this.validateSort(sort)([...filteredArray]); // Clonar y ordenar el array
+    const sortedArray = this.validateSort(sort)([...filteredArray]);
 
     const productsOnPage = sortedArray.slice(startIndex, endIndex);
 

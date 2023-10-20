@@ -19,7 +19,7 @@ export async function sendPurchaseConfirmationEmail(ticket) {
   try {
     const result = await mailController.sendMail({
       from: process.env.GOOGLE_EMAIL,
-      to: 'nachosachetto1998@hotmail.com', // Cambia esta dirección de correo electrónico según tus necesidades
+      to: 'nachosachetto1998@hotmail.com',
       subject: "Compra Realizada",
       html: `
         <div>
@@ -149,7 +149,6 @@ export async function sendUsersDeleted(email) {
 
     console.log('Email sent to deleted user successfully:', result);
   } catch (error) {
-    console.error('Error al enviar el correo a usuario eliminado:', error);
 
     CustomError.createError({
       name: 'Error Envío de Correo a Usuario Eliminado',

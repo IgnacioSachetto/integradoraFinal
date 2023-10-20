@@ -44,11 +44,11 @@ describe('testing de integracion', () => {
       let idproducto;
 
       const mockProduct = {
-        owner: '', //ok
-        title: 'Title Prueba', //ok
-        description: 'Description Prueba', //ok
-        code: 11, // ok
-        price: 12, // ok
+        owner: '',
+        title: 'Title Prueba',
+        description: 'Description Prueba',
+        code: 11,
+        price: 12,
         status: true,
         stock: 13,
         category: 'Category',
