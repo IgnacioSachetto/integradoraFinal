@@ -19,7 +19,7 @@ export async function sendPurchaseConfirmationEmail(ticket) {
   try {
     const result = await mailController.sendMail({
       from: process.env.GOOGLE_EMAIL,
-      to: 'nachosachetto1998@hotmail.com',
+      to: process.env.EMAIL_RECEIVER,
       subject: "Compra Realizada",
       html: `
         <div>
@@ -51,7 +51,7 @@ export async function sendMailRecovery({ email, token }) {
   try {
     const result = await mailController.sendMail({
       from: process.env.GOOGLE_EMAIL,
-      to: 'nachosachetto1998@hotmail.com',
+      to: process.env.EMAIL_RECEIVER,
       subject: "Recuperación de Contraseña",
       html: `
         <div>
@@ -78,7 +78,7 @@ export async function sendDeletedProduct(deletedProduct) {
   try {
     const result = await mailController.sendMail({
       from: process.env.GOOGLE_EMAIL,
-      to: 'nachosachetto1998@hotmail.com',
+      to: process.env.EMAIL_RECEIVER,
       subject: "Producto Borrado",
       html: `
         <div>
@@ -107,8 +107,8 @@ export async function sendDeletedProduct(deletedProduct) {
 export async function sendDeletedUserEmail(email) {
   try {
     const result = await mailController.sendMail({
-      from: process.env.EMAIL_SENDER,
-      to: email,
+      from: process.env.GOOGLE_EMAIL,
+      to: process.env.EMAIL_RECEIVER,
       subject: 'Cuenta Eliminada por Inactividad',
       html: `
         <div>
@@ -135,8 +135,8 @@ export async function sendDeletedUserEmail(email) {
 export async function sendUsersDeleted(email) {
   try {
     const result = await mailController.sendMail({
-      from: process.env.EMAIL_SENDER,
-      to: email,
+      from: process.env.GOOGLE_EMAIL,
+      to: process.env.EMAIL_RECEIVER,
       subject: 'Usuarios Eliminados por Inactividad',
       html: `
         <div>
