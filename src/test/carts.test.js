@@ -37,7 +37,7 @@ describe('Cart Controller', () => {
 
   describe('GET /api/carts/:id', () => {
     it('debería obtener un carrito por su ID', async () => {
-      const testCartIdGET = '64a09b738d9e59ed2adf14bb';
+      const testCartIdGET = '64a09c248d9e59ed2adf14dd';
       const response = await requester.get(`/api/carts/${testCartIdGET}`);
       expect(response.status).to.be.eql(200);
       expect(response.body).to.have.property('status', 'sucess');
@@ -47,7 +47,7 @@ describe('Cart Controller', () => {
 
   describe('PUT /api/carts/:cid/products/:pid', () => {
     it('debería actualizar la cantidad de un producto en un carrito', async () => {
-      const testCartIdGET = "64a09b738d9e59ed2adf14bb";
+      const testCartIdGET = "64a09c248d9e59ed2adf14dd";
       const updatedProductData = {
         products: [
           {

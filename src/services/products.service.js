@@ -3,23 +3,21 @@ import { modelProduct } from '../DAO/models/db/products.model.db.js';
 import CustomError from '../services/errors/custom-error.js';
 import EErrors from '../services/errors/enums.js';
 class ProductService {
-  validatePostProduct(title, description, code, price, status, stock, category, owner) {
-    if (!title || !description || !code || !price || !status || !stock || !category || !owner) {
+  validateCreateProduct(title, description, code, price, stock, category) {
+    if (!title || !description || !code || !price || !stock || !category) {
       CustomError.createError({
         name: 'VALDIATION ERROR',
-        cause: 'Parametros Faltantes o incorrectos.',
-        message: 'os parámetros proporcionados son insuficientes o inválidos para llevar a cabo la creación. Por favor, revisa la información suministrada e intenta nuevamente.',
+        cause: 'Parametros Faltantes.',
         code: EErrors.INVALID_INPUT_ERROR,
       });
     }
   }
 
-  validatePutProduct(id, title, description, code, price, status, stock, category, thumbnails) {
-    if (!id || !title || !description || !code || !price || !status || !stock || !category || !thumbnails) {
+  validatePutProduct(id, title, description, code, price, status, stock, category) {
+    if (!id || !title || !description || !code || !price || !status || !stock || !category) {
       CustomError.createError({
         name: 'VALDIATION ERROR',
-        cause: 'Parametros Faltantes o incorrectos.',
-        message: 'os parámetros proporcionados son insuficientes o inválidos para llevar a cabo la creación. Por favor, revisa la información suministrada e intenta nuevamente.',
+        cause: 'Parametros Faltantes.',
         code: EErrors.INVALID_INPUT_ERROR,
       });
     }
@@ -29,8 +27,7 @@ class ProductService {
     if (!id) {
       CustomError.createError({
         name: 'VALDIATION ERROR',
-        cause: 'Parametros Faltantes o incorrectos.',
-        message: 'os parámetros proporcionados son insuficientes o inválidos para llevar a cabo la creación. Por favor, revisa la información suministrada e intenta nuevamente.',
+        cause: 'Parametros Faltantes.',
         code: EErrors.INVALID_INPUT_ERROR,
       });
     }
@@ -88,16 +85,14 @@ class ProductService {
         user: {},
       });
     } else {
-      //this.validatePostProduct(title, description, code, price, status, stock, category , owner);
-      console.log("anterior : " + owner );
+      this.validateCreateProduct( title, description, code, price, stock, category);
       productcreated = await modelProduct.createProduct(owner, title, description, code, price, status, stock, category );
       return productcreated;
     }
   }
 
-  async updateProduct(id, title, description, code, price, status, stock, category, thumbnails) {
-    this.validatePostProduct(id, title, description, code, price, status, stock, category, thumbnails);
-    const userUptaded = await modelProduct.updateProduct(id, title, description, code, price, status, stock, category, thumbnails);
+  async updateProduct(id, title, description, code, price, status, stock, category) {
+    const userUptaded = await modelProduct.updateProduct(id, title, description, code, price, status, stock, category);
     return userUptaded;
   }
 

@@ -36,7 +36,7 @@ class ModelProduct {
   }
 
   async createProduct(owner, title, description, code, price, status, stock, category, thumbnails) {
-    console.log("En create: " + owner)
+    console.log("En create: " + " owner: " + owner + " title: " + title," description: " + description + " code: " + code + "price: " + price + "status: " + status +"stock: "+ stock +"category: " + category + "thubm: " + thumbnails)
     const productcreated = await ProductsModel.create({  owner, title, description, code, price, status, stock, category, thumbnails });
     return productcreated;
   }

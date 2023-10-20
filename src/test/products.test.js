@@ -25,8 +25,8 @@ describe('testing de integracion', () => {
     it('En endpoint POST /api/sessions/login debe devolver una cookie de logueado', async function () {
       this.timeout(50000);
       const result = await requester.post('/api/sessions/login').send({
-        email: 'prueba1@prueba1.com',
-        password: 'prueba1',
+        email: 'adminCoder@coder.com',
+        password: 'adminCod3r123',
       });
       const cookie = result.headers['set-cookie'][0];
       expect(cookie).to.be.ok;
@@ -44,24 +44,27 @@ describe('testing de integracion', () => {
       let idproducto;
 
       const mockProduct = {
-        title: 'producto test',
-        description: 'descripcion test',
-        code: '99999',
-        price: 10,
+        owner: '', //ok
+        title: 'Title Prueba', //ok
+        description: 'Description Prueba', //ok
+        code: 11, // ok
+        price: 12, // ok
         status: true,
-        stock: 10,
-        category: 'almacen',
-        thumbnails: ['1', '2', '3'],
+        stock: 13,
+        category: 'Category',
+        thumbnails: ''
+
       };
 
+
       const mockProductUpdated = {
+        owner: 'ignaciosachetto@gmail.com',
         title: 'producto updated',
         description: 'descripcion updated',
         code: '99999',
         price: 100,
-        status: true,
         stock: 100,
-        category: 'prueba',
+        category: 'Prueba 2',
         thumbnails: ['1', '2', '3'],
       };
 

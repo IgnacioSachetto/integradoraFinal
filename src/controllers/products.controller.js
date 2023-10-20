@@ -211,9 +211,8 @@ class ProductControler {
   async create(req, res) {
     try {
       const owner = req.user.email;
-      console.log(owner);
       const { title, description, code, price, status = true, stock, category, thumbnails   } = req.body;
-      const ProductCreated = await productService.createProduct(title, description, code, price, status, stock, category, thumbnails,owner);
+      const ProductCreated = await productService.createProduct(owner, title, description, code, price, status, stock, category, thumbnails);
       if (ProductCreated.code === 400) {
         CustomError.createError({
           name: 'Error Entrada Invalida',
